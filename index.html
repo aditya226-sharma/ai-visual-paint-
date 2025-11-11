@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Virtual Painter - Air Drawing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 AI Virtual Painter</h1>
+            <p>Draw in the air using your finger!</p>
+        </header>
+
+        <div class="main-content">
+            <div class="canvas-container">
+                <video id="video" autoplay muted></video>
+                <canvas id="canvas"></canvas>
+                <canvas id="drawing-canvas"></canvas>
+            </div>
+
+            <div class="controls">
+                <div class="color-palette">
+                    <h3>Colors</h3>
+                    <div class="colors">
+                        <div class="color-btn active" data-color="#FF0000" style="background: #FF0000;"></div>
+                        <div class="color-btn" data-color="#00FF00" style="background: #00FF00;"></div>
+                        <div class="color-btn" data-color="#0000FF" style="background: #0000FF;"></div>
+                        <div class="color-btn" data-color="#FFFF00" style="background: #FFFF00;"></div>
+                        <div class="color-btn" data-color="#FF00FF" style="background: #FF00FF;"></div>
+                        <div class="color-btn" data-color="#00FFFF" style="background: #00FFFF;"></div>
+                        <div class="color-btn" data-color="#FFFFFF" style="background: #FFFFFF;"></div>
+                        <div class="color-btn" data-color="#000000" style="background: #000000;"></div>
+                    </div>
+                </div>
+
+                <div class="brush-controls">
+                    <h3>Brush Size</h3>
+                    <input type="range" id="brush-size" min="2" max="20" value="5">
+                    <span id="brush-size-value">5</span>
+                </div>
+
+                <div class="zoom-controls">
+                    <h3>Zoom Level</h3>
+                    <div class="zoom-display">
+                        <span id="zoom-value">100%</span>
+                        <button onclick="app.zoomLevel=1; app.applyZoom(); document.getElementById('zoom-value').textContent='100%'">Reset</button>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="clear-btn">Clear Canvas</button>
+                    <button id="save-btn">Save Drawing</button>
+                    <button id="toggle-drawing">Toggle Drawing</button>
+                    <button onclick="app.handleUndo()">Undo</button>
+                    <button onclick="app.handleRedo()">Redo</button>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="status">
+            <div id="status-indicator">
+                <span class="status-dot"></span>
+                <span id="status-text">Initializing...</span>
+            </div>
+            <div class="gesture-info">
+                <div>Color: <span id="current-color-name">Red</span></div>
+                <div>Brush: <span id="current-brush-size">5</span>px</div>
+                <div>Zoom: <span id="current-zoom">100%</span></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="gesture-footer">
+        <div class="gesture-container">
+            <h3>🎮 Gesture Controls</h3>
+            <div class="gesture-grid">
+                <div class="gesture-item">
+                    <span class="gesture-icon">☝️</span>
+                    <span class="gesture-desc">Index up = Draw</span>
+                </div>
+                <div class="gesture-item">
+                    <span class="gesture-icon">🖐️</span>
+                    <span class="gesture-desc">Open hand = Stop</span>
+                </div>
+                <div class="gesture-item">
+                    <span class="gesture-icon">✊</span>
+                    <span class="gesture-desc">Fist = Erase</span>
+                </div>
+                <div class="gesture-item">
+                    <span class="gesture-icon">✌️</span>
+                    <span class="gesture-desc">Peace = Undo</span>
+                </div>
+                <div class="gesture-item">
+                    <span class="gesture-icon">🤟</span>
+                    <span class="gesture-desc">Three = Redo</span>
+                </div>
+                <div class="gesture-item">
+                    <span class="gesture-icon">🖐️</span>
+                    <span class="gesture-desc">Four = Color</span>
+                </div>
+                <div class="gesture-item">
+                    <span class="gesture-icon">👍</span>
+                    <span class="gesture-desc">Thumbs up = Size+</span>
+                </div>
+                <div class="gesture-item">
+                    <span class="gesture-icon">👎</span>
+                    <span class="gesture-desc">Thumbs down = Size-</span>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

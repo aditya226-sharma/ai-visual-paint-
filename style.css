@@ -1,0 +1,353 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: white;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.main-content {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.canvas-container {
+    position: relative;
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+#video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transform: scaleX(-1);
+}
+
+#canvas, #drawing-canvas {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    border-radius: 10px;
+    transform: scaleX(-1);
+}
+
+#drawing-canvas {
+    pointer-events: none;
+}
+
+.controls {
+    width: 300px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+.controls h3 {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.color-palette {
+    margin-bottom: 25px;
+}
+
+.colors {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.color-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.color-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.color-btn.active {
+    border-color: #fff;
+    box-shadow: 0 0 20px rgba(255,255,255,0.5);
+}
+
+.brush-controls {
+    margin-bottom: 25px;
+}
+
+#brush-size {
+    width: 100%;
+    margin: 10px 0;
+    accent-color: #667eea;
+}
+
+#brush-size-value {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.action-buttons {
+    margin-bottom: 25px;
+}
+
+.action-buttons button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-buttons button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.action-buttons button:active {
+    transform: translateY(0);
+}
+
+.zoom-controls {
+    margin-bottom: 25px;
+}
+
+.zoom-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.1);
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.zoom-display button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.zoom-display button:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.instructions {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.instructions ul {
+    list-style: none;
+}
+
+.instructions li {
+    padding: 5px 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.instructions li {
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.status {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.8);
+    padding: 15px 20px;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    min-width: 200px;
+}
+
+.gesture-info {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    font-size: 0.9rem;
+}
+
+.gesture-info div {
+    margin: 3px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.canvas-container {
+    transition: transform 0.3s ease;
+}
+
+#status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ff4444;
+    animation: pulse 2s infinite;
+}
+
+.status-dot.connected {
+    background: #44ff44;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.canvas-container {
+    transition: transform 0.3s ease;
+}
+
+.gesture-footer {
+    background: rgba(0,0,0,0.9);
+    backdrop-filter: blur(10px);
+    padding: 20px 0;
+    margin-top: 30px;
+    border-radius: 15px 15px 0 0;
+}
+
+.gesture-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.gesture-container h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    color: #fff;
+}
+
+.gesture-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.gesture-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.1);
+    padding: 12px 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.gesture-item:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+.gesture-icon {
+    font-size: 1.5rem;
+    min-width: 30px;
+}
+
+.gesture-desc {
+    font-size: 0.9rem;
+    color: #fff;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .controls {
+        width: 100%;
+    }
+    
+    .colors {
+        grid-template-columns: repeat(8, 1fr);
+    }
+    
+    .color-btn {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .gesture-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+    }
+    
+    .gesture-item {
+        padding: 10px;
+    }
+    
+    .gesture-icon {
+        font-size: 1.2rem;
+    }
+    
+    .gesture-desc {
+        font-size: 0.8rem;
+    }
+}
